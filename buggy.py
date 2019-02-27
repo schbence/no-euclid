@@ -7,7 +7,7 @@ from numpy import *
 
 from random import uniform
 
-
+# Just a square for testing
 def sqr():
 	a = 0.5
 	vss = array([
@@ -33,7 +33,7 @@ def sqr():
 			glVertex3fv(vss[vertex])
 	glEnd()
 
-
+# The horizontal reference plane
 def grid():
 	N = 100
 	a = 0.2
@@ -55,12 +55,13 @@ def grid():
 			glVertex3fv(vss[vertex])
 	glEnd()
 
-
+# I don't like the OpenGL coordinate system
 def sor(vss):
 	xs,ys,zs = vss.T
 	return array([ys,zs,xs]).T
 
-
+# Transform an array of vertices vss from spherical coordinates tau and phi to cartesian space
+# The points are on a sphere with radius r
 def S2C(vec,r):
 	tas,fis = vec.T
 	xs = r*sin(tas)*cos(fis)
@@ -69,12 +70,15 @@ def S2C(vec,r):
 	vss = array([xs,ys,zs]).T
 	return vss
 
+# Just a shifting transformation in the z (upward) direction, so that the sphere is 'touching' the horizontal plane
 
 def UP(vss,r):
 	xs,ys,zs = vss.T
 	zs=zs+r
 	return array([xs,ys,zs]).T
 
+# Projection transformation of xyz coordinated to the xy plane from a projection point at height p
+# The resulting coordinates are polar coordinates in the xy plane
 
 def PROJ(vss,p):
 	xs,ys,zs = vss.T
@@ -84,6 +88,8 @@ def PROJ(vss,p):
 	return vecp
 
 
+# Transformation of polar coordinates in the xy plane to the final xyz coordinates
+
 def P2C(vecp):
 	rs,ts = vecp.T
 	xs = rs*cos(ts)
@@ -92,6 +98,7 @@ def P2C(vecp):
 
 	return array([xs,ys,zs]).T
 
+# Coordinate lines for testing
 
 def coord():
 	a = 1
@@ -113,6 +120,7 @@ def coord():
 
 
 # Float -> (List Point, List Edge)
+# Create points and edges of a sphere with radius r
 def sphr(r):
 	vec = []
 	fres = 16
