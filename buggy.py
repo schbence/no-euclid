@@ -170,11 +170,20 @@ def drawit(vss,ess):
 	vec = PROJ(vss,r)
 	vss = P2C(vec)
 	vss = sor(vss)
-	glBegin(GL_LINES)
+	vp = vss[0]
+	#print vss
 	for edge in ess:
-		for vertex in edge:
-			glVertex3fv(vss[vertex])
-	glEnd()
+		glBegin(GL_LINES)
+		
+		#for vertex in edge:
+			#if vss[vertex][2] < -1.:
+		v1 = vss[edge[0]]
+		v2 = vss[edge[1]]
+		if v1[2]*v2[2]>0:
+			glVertex3fv(vss[edge[0]])
+			glVertex3fv(vss[edge[1]])
+
+		glEnd()
 
 
 def main():
